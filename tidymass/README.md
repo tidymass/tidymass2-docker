@@ -4,7 +4,7 @@
 
 2. Click the Create Repository button. 
 
-3. For the repo name, use the name same with your building, here is `tidymass`. Make sure the Visibility is `Public`.
+3. For the repo name, use the name same with your building, here is `tidymass2`. Make sure the Visibility is `Public`.
 
 4. Click the `Create` button!
 
@@ -21,7 +21,7 @@
 Open the terminal, and run the code below to build image.
 
 ```
-docker build -t tidymass -f tidymass/Dockerfile .
+docker build -t tidymass2 -f tidymass/Dockerfile .
 ```
 
 `-t`: tag name, here is `tidymass`
@@ -31,14 +31,17 @@ docker build -t tidymass -f tidymass/Dockerfile .
 Then check it in local.
 
 ```
-docker run -e PASSWORD=tidymass -p 8787:8787 tidymass
+docker run -it --user root -e PASSWORD=tidymass -p 8787:8787 \
+  -v YOUR_WORKING_DIR:/home/rstudio \
+  tidymass2:latest
+
 ```
 
 Open this in browser: http://localhost:8787
 
 # Push the image.
 
-1. First, let check if there is a image named as `tidymass` has been created.
+1. First, let check if there is a image named as `tidymass2` has been created.
 
 ```
 docker image ls
@@ -55,13 +58,13 @@ docker login -u tidymass
 4. Use the `docker tag` command to give the `tidymass` image a new name. 
 
 ```
-docker tag tidymass tidymass/tidymass:latest
+docker tag tidymass2 tidymass/tidymass2:latest
 ```
 
 5. Now try your push command.
 
 ```
-docker push tidymass/tidymass:latest
+docker push tidymass/tidymass2:latest
 ```
 
 `:tag` here can be the version of the image. We set it as `:latest`.
